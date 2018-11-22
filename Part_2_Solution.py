@@ -67,7 +67,7 @@ q2f = q2.groupby('beer_name').beer_name.count()
 q2s = q2.groupby('beer_name').review_overall.sum()
 q2 = pd.DataFrame(data=dict(_count=q2f, _sum=q2s))
 trs = q2._count.sum()
-q2['weighted_average'] = q2['_count']*q2['_sum'] / trs
+q2['weighted_average'] = (q2['_sum']) / trs
 pt2 = q2.pivot_table(values=['weighted_average'], index=['beer_name'])
 pt2 = pt2.sort_values(['weighted_average'], ascending= [True])
 print(pt2.tail(3))
@@ -77,7 +77,7 @@ print(pt2.tail(3))
 #Below is a list sorted by rank of which beers people think are the best to drink
 #1st: 90 Minute IPA
 #2nd: Old Rasputin Russian Imperial Stout
-#3rd: India Pale Ale
+#3rd: Sierra Nevada Celebration Ale
 
 ####END QUESTION 2####
 
@@ -132,7 +132,7 @@ q4 = pd.DataFrame(data=dict(_count=q4f, _sumap=q4ap,_sumar=q4ar))
 trs = q4._count.sum()
 w1 = q4ar / (q4ap + q4ar)
 w2 = q4ap / (q4ap + q4ar)
-q4['weighted_average'] = (q4['_count']*q4['_sumar']*w1 + q4['_count']*q4['_sumap']*w2)/trs
+q4['weighted_average'] = (q4['_sumar']*w1 + q4['_sumap']*w2)/trs
 pt4 = q4.pivot_table(values=['weighted_average'], index=['beer_name'])
 pt4 = pt4.sort_values(['weighted_average'], ascending= [True])
 print(pt4.tail(3))
@@ -146,3 +146,4 @@ print(pt4.tail(3))
 
 ####END QUESTION 4####
 
+#####END CHALLENGE#####
